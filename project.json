@@ -1,0 +1,9 @@
+{
+  "company": "Cloudflare",
+  "title": "WakeProof",
+  "test_command": "node --test test.mjs",
+  "demo_command": "node cli.mjs demo",
+  "scope": "Local JS lifecycle reconstruction simulator with actual atomic disk persistence; no Workers/WebSocket runtime validation",
+  "implemented": true,
+  "integration_status": "unverified"
+}

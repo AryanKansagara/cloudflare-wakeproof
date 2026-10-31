@@ -1,0 +1,186 @@
+{
+  "integration_status": "unverified",
+  "scope": "local lifecycle fault model, actual atomic disk file updates",
+  "results": [
+    {
+      "label": "warm",
+      "policy": "memory_only_negative_control",
+      "scope": "local JS object replacement and actual disk state; no Cloudflare host or WebSocket validation",
+      "state": {
+        "version": 1,
+        "capacity": 2,
+        "sequence": 1,
+        "receipts": [
+          {
+            "clientId": "alice",
+            "opId": "op1",
+            "slot": 0,
+            "sequence": 1
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "connect",
+          "clientId": "alice"
+        },
+        {
+          "type": "ack",
+          "clientId": "alice",
+          "opId": "op1",
+          "slot": 0,
+          "sequence": 1,
+          "applied": true
+        }
+      ],
+      "violations": []
+    },
+    {
+      "label": "warm",
+      "policy": "persistent",
+      "scope": "local JS object replacement and actual disk state; no Cloudflare host or WebSocket validation",
+      "state": {
+        "version": 1,
+        "capacity": 2,
+        "sequence": 1,
+        "receipts": [
+          {
+            "clientId": "alice",
+            "opId": "op1",
+            "slot": 0,
+            "sequence": 1
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "connect",
+          "clientId": "alice"
+        },
+        {
+          "type": "ack",
+          "clientId": "alice",
+          "opId": "op1",
+          "slot": 0,
+          "sequence": 1,
+          "applied": true
+        }
+      ],
+      "violations": []
+    },
+    {
+      "label": "reconstruction_and_replay",
+      "policy": "memory_only_negative_control",
+      "scope": "local JS object replacement and actual disk state; no Cloudflare host or WebSocket validation",
+      "state": {
+        "version": 1,
+        "capacity": 2,
+        "sequence": 1,
+        "receipts": [
+          {
+            "clientId": "alice",
+            "opId": "op1",
+            "slot": 0,
+            "sequence": 1
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "connect",
+          "clientId": "alice"
+        },
+        {
+          "type": "connect",
+          "clientId": "noise"
+        },
+        {
+          "type": "ack",
+          "clientId": "alice",
+          "opId": "op1",
+          "slot": 0,
+          "sequence": 1,
+          "applied": true
+        },
+        {
+          "type": "reconstruct"
+        },
+        {
+          "type": "ack",
+          "clientId": "alice",
+          "opId": "op1",
+          "slot": 0,
+          "sequence": 1,
+          "applied": true
+        }
+      ],
+      "violations": [
+        "acknowledged reservation lost: op1",
+        "operation applied twice: op1"
+      ]
+    },
+    {
+      "label": "reconstruction_and_replay",
+      "policy": "persistent",
+      "scope": "local JS object replacement and actual disk state; no Cloudflare host or WebSocket validation",
+      "state": {
+        "version": 1,
+        "capacity": 2,
+        "sequence": 1,
+        "receipts": [
+          {
+            "clientId": "alice",
+            "opId": "op1",
+            "slot": 0,
+            "sequence": 1
+          }
+        ]
+      },
+      "events": [
+        {
+          "type": "connect",
+          "clientId": "alice"
+        },
+        {
+          "type": "connect",
+          "clientId": "noise"
+        },
+        {
+          "type": "ack",
+          "clientId": "alice",
+          "opId": "op1",
+          "slot": 0,
+          "sequence": 1,
+          "applied": true
+        },
+        {
+          "type": "reconstruct"
+        },
+        {
+          "type": "ack",
+          "clientId": "alice",
+          "opId": "op1",
+          "slot": 0,
+          "sequence": 1,
+          "applied": false
+        }
+      ],
+      "violations": []
+    }
+  ],
+  "minimized_loss_schedule": [
+    {
+      "type": "connect",
+      "clientId": "alice"
+    },
+    {
+      "type": "reserve",
+      "clientId": "alice",
+      "opId": "op1"
+    },
+    {
+      "type": "reconstruct"
+    }
+  ],
+  "minimization": "1-minimal under deletion; invalid schedules excluded"
+}
